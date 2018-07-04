@@ -77,7 +77,7 @@ public class PersonDaoImpl implements PersonDao {
                     "VALUES (?, ?, ?)";
 
             try {
-                PreparedStatement insertStatement = dbConnection.prepareStatement(insert);
+                PreparedStatement insertStatement = dbConnection.prepareStatement(insert, new String[] { "ID" });
                 insertStatement.setString(1, somebody.getName());
                 insertStatement.setString(2, somebody.getSurname());
                 insertStatement.setInt(3, somebody.getAge());
@@ -88,12 +88,12 @@ public class PersonDaoImpl implements PersonDao {
                     result = true;
 
                     ResultSet generatedId = insertStatement.getGeneratedKeys();
-                    System.out.println("" + generatedId);
                     if (generatedId.next()) {
+                        System.out.println(generatedId.getInt(1));
                         somebody.setId(generatedId.getInt(1));
                         System.out.println(String.format("Id for person was set: [%s]", somebody));
                     } else {
-                        System.out.println("hmmmm");
+                        System.out.println("Couldn't obtain generated key");
                     }
                 }
             } catch (SQLException e) {
