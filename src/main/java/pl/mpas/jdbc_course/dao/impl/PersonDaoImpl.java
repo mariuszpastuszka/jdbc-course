@@ -89,7 +89,6 @@ public class PersonDaoImpl implements PersonDao {
 
                     ResultSet generatedId = insertStatement.getGeneratedKeys();
                     if (generatedId.next()) {
-                        System.out.println(generatedId.getInt(1));
                         somebody.setId(generatedId.getInt(1));
                         System.out.println(String.format("Id for person was set: [%s]", somebody));
                     } else {

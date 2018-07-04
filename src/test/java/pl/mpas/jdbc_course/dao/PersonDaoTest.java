@@ -49,10 +49,11 @@ public class PersonDaoTest {
         try (Connection connection = DbConnectionConfig.getInstance().getConnection()) {
             PersonDao personDao = new PersonDaoImpl(connection);
 
-            List<Person> peopleFromDbSoFar = personDao.readOnlyAdult();
+            List<Person> peopleFromDbSoFar = personDao.readAllPersons();
 
             personDao.savePerson(somebodyToSave);
             Assert.assertTrue("Person wasn't save to db", somebodyToSave.getId() != Person.ID_OF_NOT_PERSISTENT_PERSON);
+            // TODO:MP get all persons again and compare if returned list contains new added person
         } catch (SQLException e) {
             e.printStackTrace();
         }
