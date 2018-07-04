@@ -7,20 +7,20 @@ public class Person {
     private int id;
     private String name;
     private String surname;
-    private int salary;
+    private int age;
 
-    public Person(String name, String surname, int salary) {
+    public Person(String name, String surname, int age) {
         this.id = ID_OF_NOT_PERSISTENT_PERSON;
         this.name = name;
         this.surname = surname;
-        this.salary = salary;
+        this.age = age;
     }
 
-    public Person(int id, String name, String surname, int salary) {
+    public Person(int id, String name, String surname, int age) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.salary = salary;
+        this.age = age;
     }
 
     public int getId() {
@@ -47,12 +47,12 @@ public class Person {
         this.surname = surname;
     }
 
-    public int getSalary() {
-        return salary;
+    public int getAge() {
+        return age;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Person {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", salary=" + salary +
+                ", age=" + age +
                 '}';
     }
 }

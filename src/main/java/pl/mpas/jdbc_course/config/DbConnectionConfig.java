@@ -29,6 +29,7 @@ public class DbConnectionConfig {
     }
 
     // TODO: move credentials to external file
+    // TODO:MP never return null
     public Connection getConnection() {
         if (null == dbConnection) {
             try {
