@@ -103,6 +103,45 @@ public class PersonDaoImpl implements PersonDao {
         return result;
     }
 
+    @Override
+    public List<Person> findBySurname(String surname) {
+        List<Person> result = new ArrayList<>();
+
+        // 1). create string query
+        String query = "" +
+            "SELECT ID, NAME, SURNAME, AGE                                           " +
+            "FROM PERSONS                                           " +
+            "WHERE SURNAME = ?;                                           ";
+
+        // 2). db connection
+        //        dbConnection already exists
+        // 3). create preparedStatement
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+
+            // 4). add parameters to statement
+            preparedStatement.setString(1, surname);
+
+            // 5). send query to db
+            ResultSet cursor = preparedStatement.executeQuery();
+            // 6). parse result
+            while (cursor.next()) {
+                // 6.1). create Person per record
+                Person person = new Person(
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getInt(4)
+                );
+                // 6.2). add to result
+                result.add(person);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     private List<Person> readPeopleYoungerThen(int ageBoundaryExclusive) {
         return null;
     }

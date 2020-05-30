@@ -58,4 +58,17 @@ public class PersonDaoTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void checkPersonByName() {
+        try (Connection connection = DbConnectionConfig.getInstance().getConnection()) {
+            PersonDao personDao = new PersonDaoImpl(connection);
+
+            List<Person> persons = personDao.findBySurname("L.");
+            System.out.println("found persons: " + persons);
+            Assert.assertEquals("wrong data found!!!", 2, persons.size());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

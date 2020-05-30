@@ -13,4 +13,6 @@ public interface PersonDao {
     List<Person> readChildren();
 
     boolean savePerson(Person somebody);
+
+    List<Person> findBySurname(String surname);
 }
