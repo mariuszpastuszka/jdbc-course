@@ -24,8 +24,8 @@ public class PersonDaoImpl implements PersonDao {
         List<Person> persons = new ArrayList<>();
 
         String query = "" +
-                "SELECT ID, NAME, SURNAME, AGE\n" +
-                "FROM JDBC_SCHEMA.PERSONS";
+                "SELECT ID, NAME, SURNAME, AGE  \n                              " +
+                "FROM PERSONS                                       ";
 
         try {
             Statement statement = dbConnection.createStatement();
@@ -73,7 +73,7 @@ public class PersonDaoImpl implements PersonDao {
             System.out.println(String.format("This person has already been added to db: [%s]", somebody));
         } else {
             String insert = "" +
-                    "INSERT INTO JDBC_SCHEMA.Persons (NAME, SURNAME, AGE)\n" +
+                    "INSERT INTO Persons (NAME, SURNAME, AGE)\n" +
                     "VALUES (?, ?, ?)";
 
             try {
@@ -112,7 +112,7 @@ public class PersonDaoImpl implements PersonDao {
 
         String query = "" +
                 "SELECT ID, NAME, SURNAME, AGE\n" +
-                "FROM JDBC_SCHEMA.PERSONS\n" +
+                "FROM PERSONS\n" +
                 "WHERE AGE >= ?";
 
         try {
