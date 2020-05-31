@@ -1,6 +1,7 @@
 package pl.mpas.jdbc_course.dao;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import pl.mpas.jdbc_course.config.DbConnectionConfig;
 import pl.mpas.jdbc_course.dao.impl.PersonDaoImpl;
@@ -11,6 +12,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PersonDaoTest {
+
+    @Before
+    public void initData() {
+        // remove all data
+
+
+        // init db
+    }
 
     @Test
     public void readAllPersonsFromDbTest() {
