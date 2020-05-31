@@ -60,7 +60,17 @@ public class PersonDaoTest {
 
     @Test
     public void deletePersonBySurnameTest() {
+        final String surnameToDelete = "L.";
 
+        try {
+            Connection dbConnection = DbConnectionConfig.getInstance().getConnection();
+            PersonDao personDao = new PersonDaoImpl(dbConnection);
+            int numberOfDeletedRecords = personDao.deletePersonBySurname(surnameToDelete);
+
+            Assert.assertEquals(2, numberOfDeletedRecords);
+        } catch (Exception e) {
+            Assert.fail("deletePersonBySurnameTest - failed: " + e.getMessage());
+        }
     }
 
     @Test
