@@ -147,9 +147,9 @@ public class PersonDaoImpl implements PersonDao {
         int numberOfChangedRecords = 0;
 
         String updateQuery = "" +
-            "UPDATE PERSONS     " +
-            "SET AGE = ?       " +
-            "WHERE ID = ?;      ";
+            "UPDATE PERSONS                                                         \n" +
+            "SET AGE = ?                                                            \n" +
+            "WHERE ID = ?;                                                          \n";
 
         try {
             PreparedStatement updateStatement = dbConnection.prepareStatement(updateQuery);
