@@ -69,7 +69,9 @@ public class PersonDaoTest {
             Connection dbConnection = DbConnectionConfig.getInstance().getConnection();
             PersonDao personDao = new PersonDaoImpl(dbConnection);
 
-            int numberOfChangedRecords = personDao.updatePersonAge(3, 31);
+            // max person id
+            final int idOfUpdatedPerson = personDao.getMaxIdForPersons();
+            int numberOfChangedRecords = personDao.updatePersonAge(idOfUpdatedPerson, 31);
             // sprawdź czy rekord został zmieniony
             Assert.assertEquals("Something wrong has happended", 1, numberOfChangedRecords);
             numberOfChangedRecords = personDao.updatePersonAge(-1, 5);

@@ -19,4 +19,6 @@ public interface PersonDao {
     int updatePersonAge(int personId, int newAge);
 
     int deletePersonBySurname(String personSurname);
+
+    int getMaxIdForPersons();
 }

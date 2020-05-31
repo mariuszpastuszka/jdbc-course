@@ -183,7 +183,26 @@ public class PersonDaoImpl implements PersonDao {
         return result;
     }
 
-    private List<Person> readPeopleYoungerThen(int ageBoundaryExclusive) {
+    @Override
+    public int getMaxIdForPersons() {
+        String maxIdQuery = "" +
+            "SELECT MAX(ID)         \n" +
+            "FROM PERSONS;          \n";
+        int result = -1;
+        try {
+            PreparedStatement maxIdStatement = dbConnection.prepareStatement(maxIdQuery);
+            ResultSet resultCoursor = maxIdStatement.executeQuery();
+
+            if (resultCoursor.next()) {
+                result = resultCoursor.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+  private List<Person> readPeopleYoungerThen(int ageBoundaryExclusive) {
         return null;
     }
 
