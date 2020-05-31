@@ -50,10 +50,17 @@ public class PersonDaoTest {
             int numberOfChangedRecords = personDao.updatePersonAge(3, 31);
             // sprawdź czy rekord został zmieniony
             Assert.assertEquals("Something wrong has happended", 1, numberOfChangedRecords);
+            numberOfChangedRecords = personDao.updatePersonAge(-1, 5);
+            Assert.assertEquals(0, numberOfChangedRecords);
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail("Test failed: " + e.getMessage());
         }
+    }
+
+    @Test
+    public void deletePersonBySurnameTest() {
+
     }
 
     @Test

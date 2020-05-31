@@ -165,6 +165,24 @@ public class PersonDaoImpl implements PersonDao {
         return numberOfChangedRecords;
     }
 
+    @Override
+    public int deletePersonBySurname(String personSurname) {
+        int result = 0;
+
+        String deleteQuery = "" +
+            "DELETE FROM PERSONS                                \n" +
+            "WHERE SURNAME = ?;                                 \n";
+
+        try {
+            PreparedStatement deleteStatement = dbConnection.prepareStatement(deleteQuery);
+            deleteStatement.setString(1, personSurname);
+            result = deleteStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     private List<Person> readPeopleYoungerThen(int ageBoundaryExclusive) {
         return null;
     }
