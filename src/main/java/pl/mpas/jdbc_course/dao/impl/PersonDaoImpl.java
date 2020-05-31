@@ -117,11 +117,12 @@ public class PersonDaoImpl implements PersonDao {
             insertStatement.setString(2, person.getSurname());
             insertStatement.setInt(3, person.getAge());
 
+            result = insertStatement.executeUpdate() > 0;
+
             ResultSet generatedKeys = insertStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 person.setId(generatedKeys.getInt(1));
             }
-             result = insertStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
