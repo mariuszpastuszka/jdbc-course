@@ -97,6 +97,42 @@ public class PersonDaoTest {
         Assert.assertTrue(beforeSave.getId() != Person.ID_OF_NOT_PERSISTENT_PERSON);
     }
 
+    private static void badToy() {
+        if (System.currentTimeMillis() % 2 == 0) {
+            throw new NullPointerException("haaha");
+        }
+    }
+
+    @Test
+    public void handleMyTransaction() {
+        Connection connection = DbConnectionConfig.getInstance().getConnection();
+        try {
+            connection.setAutoCommit(false);
+            // usunąć ostatni rekord
+            // dodawanie drugiego
+            badToy();
+            // dodać rekord
+
+            // 1 - ok
+            connection.commit();
+        } catch (Exception e) {
+            // 2 - not ok - rollback
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            Assert.fail("Test failed, transaction failed:(:(");
+        }
+        try {
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Test
     public void deletePersonBySurnameTest() {
         final String surnameToDelete = "L.";
