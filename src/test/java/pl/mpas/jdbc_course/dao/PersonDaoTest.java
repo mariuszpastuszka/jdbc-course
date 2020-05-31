@@ -8,6 +8,7 @@ import pl.mpas.jdbc_course.dao.impl.PersonDaoImpl;
 import pl.mpas.jdbc_course.model.Person;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,10 +16,28 @@ public class PersonDaoTest {
 
     @Before
     public void initData() {
-        // remove all data
-
+        String deleteQuery = "DELETE FROM PERSONS";
 
         // init db
+        String initQuery = "" +
+            "INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Marcin', 'P.', 30);  \n" +
+            "INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Maria', 'W.', 18);   \n" +
+            "INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Eryk', 'S.', 10);    \n" +
+            "INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Ania', 'L.', 28);    \n" +
+            "INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Robert', 'L.', 30);  \n" +
+            "";
+
+        // remove all data
+        Connection dbConnection = DbConnectionConfig.getInstance().getConnection();
+        try {
+            PreparedStatement deleteStatement = dbConnection.prepareStatement(deleteQuery);
+            deleteStatement.executeUpdate();
+
+            PreparedStatement insertStatement = dbConnection.prepareStatement(initQuery);
+            insertStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
