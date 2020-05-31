@@ -16,5 +16,5 @@ public interface PersonDao {
 
     List<Person> findBySurname(String surname);
 
-    int updatePerson(int personId, int newAge);
+    int updatePersonAge(int personId, int newAge);
 }

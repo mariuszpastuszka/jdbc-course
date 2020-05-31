@@ -43,8 +43,17 @@ public class PersonDaoTest {
     @Test
     public void updateAgeTest() {
         // użyj zdefiniowanego API
+        try {
+            Connection dbConnection = DbConnectionConfig.getInstance().getConnection();
+            PersonDao personDao = new PersonDaoImpl(dbConnection);
 
-        // sprawdź czy rekord został zmieniony
+            int numberOfChangedRecords = personDao.updatePersonAge(3, 31);
+            // sprawdź czy rekord został zmieniony
+            Assert.assertEquals("Something wrong has happended", 1, numberOfChangedRecords);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail("Test failed: " + e.getMessage());
+        }
     }
 
     @Test

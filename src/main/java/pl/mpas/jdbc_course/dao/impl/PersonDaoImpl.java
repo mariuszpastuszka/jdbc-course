@@ -143,7 +143,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public int updatePerson(int personId, int newAge) {
+    public int updatePersonAge(int personId, int newAge) {
         int numberOfChangedRecords = 0;
 
         String updateQuery = "" +
@@ -155,8 +155,8 @@ public class PersonDaoImpl implements PersonDao {
             PreparedStatement updateStatement = dbConnection.prepareStatement(updateQuery);
 
             updateStatement.setInt(1, newAge);
-//            updateStatement.setInt(2, personId);
-            updateStatement.setString(2, "" + personId);
+            updateStatement.setInt(2, personId);
+//            updateStatement.setString(2, "one");
 
             numberOfChangedRecords = updateStatement.executeUpdate();
         } catch (SQLException e) {
