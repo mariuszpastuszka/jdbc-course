@@ -142,6 +142,29 @@ public class PersonDaoImpl implements PersonDao {
         return result;
     }
 
+    @Override
+    public int updatePerson(int personId, int newAge) {
+        int numberOfChangedRecords = 0;
+
+        String updateQuery = "" +
+            "UPDATE PERSONS     " +
+            "SET AGE = ?       " +
+            "WHERE ID = ?;      ";
+
+        try {
+            PreparedStatement updateStatement = dbConnection.prepareStatement(updateQuery);
+
+            updateStatement.setInt(1, newAge);
+//            updateStatement.setInt(2, personId);
+            updateStatement.setString(2, "" + personId);
+
+            numberOfChangedRecords = updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return numberOfChangedRecords;
+    }
+
     private List<Person> readPeopleYoungerThen(int ageBoundaryExclusive) {
         return null;
     }

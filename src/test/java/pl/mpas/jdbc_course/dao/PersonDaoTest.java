@@ -41,6 +41,13 @@ public class PersonDaoTest {
     }
 
     @Test
+    public void updateAgeTest() {
+        // użyj zdefiniowanego API
+
+        // sprawdź czy rekord został zmieniony
+    }
+
+    @Test
     public void savePersonTest() {
         Person somebodyToSave = new Person("Helena", "J.", 15);
 
