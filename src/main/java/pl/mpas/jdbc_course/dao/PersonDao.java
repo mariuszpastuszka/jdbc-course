@@ -14,6 +14,8 @@ public interface PersonDao {
 
     boolean savePerson(Person somebody);
 
+    boolean savePersonV2(Person person);
+
     List<Person> findBySurname(String surname);
 
     int updatePersonAge(int personId, int newAge);
