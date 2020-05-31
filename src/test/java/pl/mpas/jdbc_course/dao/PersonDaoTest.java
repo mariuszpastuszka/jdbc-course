@@ -107,6 +107,20 @@ public class PersonDaoTest {
 
         Assert.assertTrue("Constructed object has wrong value of id", Person.ID_OF_NOT_PERSISTENT_PERSON == somebodyToSave.getId());
 
+        // try with resources
+//        Connection connection = null;
+//        try {
+//            connection = DbConnectionConfig.getInstance().getConnection();
+//        } catch (Exception e) {
+//
+//        } finally {
+//            if (null != connection) {
+//                try {
+//                    connection.close();
+//                } catch (SQLException e) {
+//                }
+//            }
+//        }
         try (Connection connection = DbConnectionConfig.getInstance().getConnection()) {
             PersonDao personDao = new PersonDaoImpl(connection);
 
