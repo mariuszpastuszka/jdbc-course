@@ -10,6 +10,10 @@ public interface DogDao {
         return toSave;
     }
 
+    default Dog save(Dog toSave, Long ownerId) {
+        return toSave;
+    }
+
     default boolean deleteDog(Dog toDelete) {
         return false;
     }
