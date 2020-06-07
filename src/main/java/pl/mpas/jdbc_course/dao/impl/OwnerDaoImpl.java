@@ -1,5 +1,6 @@
 package pl.mpas.jdbc_course.dao.impl;
 
+import pl.mpas.jdbc_course.dao.DogDao;
 import pl.mpas.jdbc_course.dao.OwnerDao;
 import pl.mpas.jdbc_course.model.Dog;
 import pl.mpas.jdbc_course.model.Owner;
@@ -9,9 +10,11 @@ import java.sql.*;
 public class OwnerDaoImpl implements OwnerDao {
 
     private final Connection dbConnection;
+    private final DogDao dogDao;
 
-    public OwnerDaoImpl(final Connection dbConnection) {
+    public OwnerDaoImpl(final Connection dbConnection, final DogDao dogDao) {
         this.dbConnection = dbConnection;
+        this.dogDao = dogDao;
     }
 
     @Override
