@@ -45,8 +45,9 @@ public class OwnerDaoImpl implements OwnerDao {
                 ResultSet generatedKeys = insertStatement.getGeneratedKeys();
                 generatedKeys.next();
                 Long personId = generatedKeys.getLong(1);
-                // now we can save dog:)
+                toSave.setId(personId);
 
+                // now we can save dog:)
                 Dog dogToSave = toSave.getDog();
                 dogDao.save(dogToSave, personId);
 

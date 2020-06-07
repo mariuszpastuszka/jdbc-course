@@ -3,9 +3,7 @@ package pl.mpas.jdbc_course.dao.impl;
 import pl.mpas.jdbc_course.dao.DogDao;
 import pl.mpas.jdbc_course.model.Dog;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DogDaoImpl implements DogDao {
 
@@ -30,12 +28,16 @@ public class DogDaoImpl implements DogDao {
 
             if (toSave.getId() == null) {
                 // save dog
-                PreparedStatement dogInsertStatement = dbConnection.prepareStatement(dogInsertQuery);
+                PreparedStatement dogInsertStatement = dbConnection.prepareStatement(dogInsertQuery,
+                        Statement.RETURN_GENERATED_KEYS);
                 dogInsertStatement.setString(1, toSave.getName());
                 dogInsertStatement.setString(2, toSave.getBreed());
                 dogInsertStatement.setLong(3, ownerId);
                 dogInsertStatement.executeUpdate();
-                // Fix id
+                ResultSet generatedKeys = dogInsertStatement.getGeneratedKeys();
+                generatedKeys.next();
+                Long dogId = generatedKeys.getLong(1);
+                toSave.setId(dogId);
 
             } else {
                 // update dog
