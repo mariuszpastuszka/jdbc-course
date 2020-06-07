@@ -83,6 +83,50 @@ public class OwnerDaoImpl implements OwnerDao {
                     "UPDATE OWNER                                                       \n" +
                     "SET NAME = ?, SEX = ?, CITY = ?, STREET = ?, ZIPCODE = ?           \n" +
                     "WHERE ID = ?                                                       \n";
+
+            try {
+                dbConnection.setAutoCommit(false);
+                PreparedStatement updateOwnerStatement = dbConnection.prepareStatement(ownerUpdateQuery);
+                updateOwnerStatement.setString(1, toSave.getName());
+                updateOwnerStatement.setString(2, String.valueOf(toSave.getSex().getSexMark()));
+                updateOwnerStatement.setString(3, toSave.getCity());
+                updateOwnerStatement.setString(4, toSave.getStreet());
+                updateOwnerStatement.setString(5, toSave.getZipCode());
+                updateOwnerStatement.setLong(6, toSave.getId());
+
+                updateOwnerStatement.executeUpdate(); // data saved into db
+
+                // save dog
+                Dog dogToSave = toSave.getDog();
+                if (dogToSave.getId() == null) {
+                    // save dog
+                    PreparedStatement dogInsertStatement = dbConnection.prepareStatement(dogInsertQuery);
+                    dogInsertStatement.setString(1, dogToSave.getName());
+                    dogInsertStatement.setString(2, dogToSave.getBreed());
+                    dogInsertStatement.setLong(3, toSave.getId());
+                    dogInsertStatement.executeUpdate();
+
+                } else {
+                    // update dog
+                    PreparedStatement dogUpdateStatement = dbConnection.prepareStatement(dogUpdateQuery);
+                    dogUpdateStatement.setString(1, dogToSave.getName());
+                    dogUpdateStatement.setString(2, dogToSave.getBreed());
+                    dogUpdateStatement.setLong(3, toSave.getId());
+                    dogUpdateStatement.setLong(4, dogToSave.getId());
+                    dogUpdateStatement.executeUpdate();
+                }
+                dbConnection.commit();
+                dbConnection.setAutoCommit(true);
+
+            } catch (SQLException e) {
+                try {
+                    dbConnection.rollback();
+                    dbConnection.setAutoCommit(true);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                e.printStackTrace();
+            }
         }
         return toSave;
     }
