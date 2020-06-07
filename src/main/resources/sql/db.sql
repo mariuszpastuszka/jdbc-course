@@ -25,10 +25,11 @@ CREATE TABLE IF NOT EXISTS DOG
   ID bigint auto_increment,
   NAME  VARCHAR(256),
   BREED VARCHAR(256),
+  OWNER_ID bigint,
   constraint DOG_PK
     primary key (ID),
-  constraint OWNER_ID
-    foreign key (ID) references OWNER
+  constraint OWNER_ID_FK
+    foreign key (OWNER_ID) references OWNER(ID)
 );
 
 

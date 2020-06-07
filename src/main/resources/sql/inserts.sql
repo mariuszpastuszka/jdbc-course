@@ -3,3 +3,17 @@ INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Maria', 'W.', 18);
 INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Eryk', 'S.', 10);
 INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Ania', 'L.', 28);
 INSERT INTO Persons (NAME, SURNAME, AGE) VALUES ('Robert', 'L.', 30);
+
+INSERT INTO OWNER (NAME, SEX, CITY, STREET, ZIPCODE)
+VALUES ('Marek', 'M', 'WARSAW', 'Marszałkowska', '55-555');
+
+-- UPDATE OWNER
+-- SET NAME = '', SEX = '', CITY = '', STREET = '', ZIPCODE = ''
+-- WHERE ID = '';
+
+-- UPDATE DOG
+-- SET NAME = '', BREED = '', OWNER_ID = ''
+-- WHERE ID = '';
+
+INSERT INTO DOG (NAME, BREED, OWNER_ID)
+VALUES ('AZOR', 'Kundelek', SELECT MAX(ID) FROM OWNER);
