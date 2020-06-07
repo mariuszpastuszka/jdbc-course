@@ -48,23 +48,8 @@ public class OwnerDaoImpl implements OwnerDao {
                 // now we can save dog:)
 
                 Dog dogToSave = toSave.getDog();
-                if (toSave.getDog().getId() == null) {
-                    // save dog
-                    PreparedStatement dogInsertStatement = dbConnection.prepareStatement(dogInsertQuery);
-                    dogInsertStatement.setString(1, dogToSave.getName());
-                    dogInsertStatement.setString(2, dogToSave.getBreed());
-                    dogInsertStatement.setLong(3, personId);
-                    dogInsertStatement.executeUpdate();
+                dogDao.save(dogToSave, personId);
 
-                } else {
-                    // update dog
-                    PreparedStatement dogUpdateStatement = dbConnection.prepareStatement(dogUpdateQuery);
-                    dogUpdateStatement.setString(1, dogToSave.getName());
-                    dogUpdateStatement.setString(2, dogToSave.getBreed());
-                    dogUpdateStatement.setLong(3, personId);
-                    dogUpdateStatement.setLong(4, dogToSave.getId());
-                    dogUpdateStatement.executeUpdate();
-                }
                 dbConnection.commit();
                 dbConnection.setAutoCommit(true);
             } catch (SQLException e) {
@@ -95,23 +80,8 @@ public class OwnerDaoImpl implements OwnerDao {
 
                 // save dog
                 Dog dogToSave = toSave.getDog();
-                if (dogToSave.getId() == null) {
-                    // save dog
-                    PreparedStatement dogInsertStatement = dbConnection.prepareStatement(dogInsertQuery);
-                    dogInsertStatement.setString(1, dogToSave.getName());
-                    dogInsertStatement.setString(2, dogToSave.getBreed());
-                    dogInsertStatement.setLong(3, toSave.getId());
-                    dogInsertStatement.executeUpdate();
+                dogDao.save(dogToSave, toSave.getId());
 
-                } else {
-                    // update dog
-                    PreparedStatement dogUpdateStatement = dbConnection.prepareStatement(dogUpdateQuery);
-                    dogUpdateStatement.setString(1, dogToSave.getName());
-                    dogUpdateStatement.setString(2, dogToSave.getBreed());
-                    dogUpdateStatement.setLong(3, toSave.getId());
-                    dogUpdateStatement.setLong(4, dogToSave.getId());
-                    dogUpdateStatement.executeUpdate();
-                }
                 dbConnection.commit();
                 dbConnection.setAutoCommit(true);
 
