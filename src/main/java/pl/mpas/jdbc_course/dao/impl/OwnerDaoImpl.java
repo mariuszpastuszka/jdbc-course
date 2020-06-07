@@ -29,10 +29,10 @@ public class OwnerDaoImpl implements OwnerDao {
     @Override
     public Owner saveOwner(Owner toSave) {
 
-        if (toSave.getId() == null) {
-            // insert
+        try {
+            if (toSave.getId() == null) {
+                // insert
 
-            try {
                 dbConnection.setAutoCommit(false);
                 PreparedStatement insertStatement = dbConnection.prepareStatement(ownerInsertQuery, Statement.RETURN_GENERATED_KEYS);
                 insertStatement.setString(1, toSave.getName());
@@ -52,21 +52,11 @@ public class OwnerDaoImpl implements OwnerDao {
 
                 dbConnection.commit();
                 dbConnection.setAutoCommit(true);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                try {
-                    dbConnection.rollback();
-                    dbConnection.setAutoCommit(true);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            }
 
 
-        } else {
-            // update
+            } else {
+                // update
 
-            try {
                 dbConnection.setAutoCommit(false);
                 PreparedStatement updateOwnerStatement = dbConnection.prepareStatement(ownerUpdateQuery);
                 updateOwnerStatement.setString(1, toSave.getName());
@@ -85,16 +75,18 @@ public class OwnerDaoImpl implements OwnerDao {
                 dbConnection.commit();
                 dbConnection.setAutoCommit(true);
 
-            } catch (SQLException e) {
-                try {
-                    dbConnection.rollback();
-                    dbConnection.setAutoCommit(true);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                dbConnection.rollback();
+                dbConnection.setAutoCommit(true);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
         }
+
         return toSave;
     }
 }
