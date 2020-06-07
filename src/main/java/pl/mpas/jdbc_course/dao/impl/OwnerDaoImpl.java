@@ -9,6 +9,15 @@ import java.sql.*;
 
 public class OwnerDaoImpl implements OwnerDao {
 
+    private static final String ownerInsertQuery = "" +
+            "INSERT INTO OWNER (NAME, SEX, CITY, STREET, ZIPCODE)               \n" +
+            "VALUES (?, ?, ?, ?, ?)                                             \n";
+
+    private static final String ownerUpdateQuery = "" +
+            "UPDATE OWNER                                                       \n" +
+            "SET NAME = ?, SEX = ?, CITY = ?, STREET = ?, ZIPCODE = ?           \n" +
+            "WHERE ID = ?                                                       \n";
+
     private final Connection dbConnection;
     private final DogDao dogDao;
 
@@ -19,20 +28,9 @@ public class OwnerDaoImpl implements OwnerDao {
 
     @Override
     public Owner saveOwner(Owner toSave) {
-        String dogInsertQuery = "" +
-                "INSERT INTO DOG (NAME, BREED, OWNER_ID)                                \n" +
-                "VALUES (?, ?, ?)                                                       \n";
-
-        String dogUpdateQuery = "" +
-                "UPDATE DOG                                                             \n" +
-                "SET NAME = ?, BREED = ?, OWNER_ID = ?                                  \n" +
-                "WHERE ID = ?                                                           \n";
 
         if (toSave.getId() == null) {
             // insert
-            String ownerInsertQuery = "" +
-                    "INSERT INTO OWNER (NAME, SEX, CITY, STREET, ZIPCODE)               \n" +
-                    "VALUES (?, ?, ?, ?, ?)                                             \n";
 
             try {
                 dbConnection.setAutoCommit(false);
@@ -82,10 +80,6 @@ public class OwnerDaoImpl implements OwnerDao {
 
         } else {
             // update
-            String ownerUpdateQuery = "" +
-                    "UPDATE OWNER                                                       \n" +
-                    "SET NAME = ?, SEX = ?, CITY = ?, STREET = ?, ZIPCODE = ?           \n" +
-                    "WHERE ID = ?                                                       \n";
 
             try {
                 dbConnection.setAutoCommit(false);
